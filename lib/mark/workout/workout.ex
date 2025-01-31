@@ -1,5 +1,10 @@
 defmodule Mark.Workouts.Workout do
-  use Ash.Resource, domain: Mark.Workouts
+  use Ash.Resource, domain: Mark.Workouts, data_layer: AshPostgres.DataLayer
+
+  postgres do
+    table "workouts"
+    repo Mark.Repo
+  end
 
   actions do
     default_accept [:name, :data]
