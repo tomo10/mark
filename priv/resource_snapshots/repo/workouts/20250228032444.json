@@ -21,14 +21,14 @@
       "type": "text"
     },
     {
-      "allow_nil?": true,
-      "default": "%{}",
+      "allow_nil?": false,
+      "default": "fragment(\"(now() AT TIME ZONE 'utc')\")",
       "generated?": false,
       "primary_key?": false,
       "references": null,
       "size": null,
-      "source": "data",
-      "type": "map"
+      "source": "date",
+      "type": "utc_datetime"
     }
   ],
   "base_filter": null,
@@ -36,7 +36,7 @@
   "custom_indexes": [],
   "custom_statements": [],
   "has_create_action": true,
-  "hash": "C3A23F8D15CBB981B4DE177543A274C0DBD4240DFB74F2B00EEE2EA90E3D1CA7",
+  "hash": "EEA5FB43BA41678A27442529D030FD0E12583A782CAC2EE9DF204BD82226A841",
   "identities": [],
   "multitenancy": {
     "attribute": null,

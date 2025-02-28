@@ -3,5 +3,7 @@ defmodule Mark.Workouts do
 
   resources do
     resource Mark.Workouts.Workout
+    resource Mark.Workouts.Set
+    resource Mark.Workouts.Round
   end
 end
