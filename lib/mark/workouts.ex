@@ -8,6 +8,7 @@ defmodule Mark.Workouts do
 
     resource Mark.Workouts.Exercise do
       define :create_exercise, action: :create
+      define :read_exercises, action: :read
     end
   end
 end
