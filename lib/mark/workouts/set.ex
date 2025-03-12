@@ -6,6 +6,13 @@ defmodule Mark.Workouts.Set do
     repo Mark.Repo
   end
 
+  # next start adding crud for sets. get that working
+  actions do
+    create :create do
+      accept [:reps, :weight]
+    end
+  end
+
   attributes do
     uuid_primary_key :id
     attribute :reps, :integer, allow_nil?: false
@@ -16,5 +23,6 @@ defmodule Mark.Workouts.Set do
 
   relationships do
     belongs_to :round, Mark.Workouts.Round
+    belongs_to :exercise, Mark.Workouts.Exercise
   end
 end

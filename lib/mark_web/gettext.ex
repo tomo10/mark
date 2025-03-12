@@ -21,4 +21,5 @@ defmodule MarkWeb.Gettext do
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
   use Gettext, otp_app: :mark
+  # use Gettext.Backend, otp_app: :mark
 end

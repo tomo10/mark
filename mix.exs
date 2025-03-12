@@ -85,6 +85,9 @@ defmodule Mark.MixProject do
         "tailwind mark --minify",
         "esbuild mark --minify",
         "phx.digest"
+      ],
+      seed: [
+        "run priv/repo/seeds.exs"
       ]
     ]
   end
