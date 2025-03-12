@@ -1,4 +1,4 @@
-defmodule Mark.Repo.Migrations.CreateSets do
+defmodule Mark.Repo.Migrations.CreateWorkouts do
   @moduledoc """
   Updates resources based on their most recent snapshots.
 
@@ -24,6 +24,7 @@ defmodule Mark.Repo.Migrations.CreateSets do
         default: fragment("(now() AT TIME ZONE 'utc')")
 
       add :round_id, :uuid
+      add :exercise_id, :uuid
     end
 
     create table(:rounds, primary_key: false) do
@@ -61,9 +62,46 @@ defmodule Mark.Repo.Migrations.CreateSets do
             prefix: "public"
           )
     end
+
+    create table(:exercises, primary_key: false) do
+      add :id, :uuid, null: false, default: fragment("gen_random_uuid()"), primary_key: true
+    end
+
+    alter table(:sets) do
+      modify :exercise_id,
+             references(:exercises,
+               column: :id,
+               name: "sets_exercise_id_fkey",
+               type: :uuid,
+               prefix: "public"
+             )
+    end
+
+    alter table(:exercises) do
+      add :name, :text, null: false
+      add :equipment, :text
+
+      add :inserted_at, :utc_datetime_usec,
+        null: false,
+        default: fragment("(now() AT TIME ZONE 'utc')")
+    end
   end
 
   def down do
+    alter table(:exercises) do
+      remove :inserted_at
+      remove :equipment
+      remove :name
+    end
+
+    drop constraint(:sets, "sets_exercise_id_fkey")
+
+    alter table(:sets) do
+      modify :exercise_id, :uuid
+    end
+
+    drop table(:exercises)
+
     drop constraint(:rounds, "rounds_workout_id_fkey")
 
     alter table(:rounds) do

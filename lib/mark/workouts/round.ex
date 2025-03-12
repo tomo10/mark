@@ -6,6 +6,12 @@ defmodule Mark.Workouts.Round do
     repo Mark.Repo
   end
 
+  actions do
+    create :create do
+      accept [:round_number, :notes, :rest_period, :workout_id]
+    end
+  end
+
   attributes do
     uuid_primary_key :id
     attribute :round_number, :integer, allow_nil?: false
