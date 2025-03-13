@@ -48,6 +48,18 @@ end)
 # first run this seed file and check it works
 # then build out more rounds, then sets. then you'll have a whole workout with assocs
 
-w1 = Workouts.create_workout(%{name: "Mark"})
+{:ok, w1} = Workouts.create_workout(%{name: "Mark"})
 
-round = WWorkouts.create_round(%{round_number: 1, rest_period: 60, workout_id: w1.id})
+{:ok, exercises} = Workouts.read_exercises()
+ex1 = exercises |> Enum.at(0)
+ex2 = exercises |> Enum.at(1)
+
+{:ok, round} = Workouts.create_round(%{round_number: 1, rest_period: 60, workout_id: w1.id})
+
+Workouts.create_set(%{reps: 10, weight: 80, round_id: round.id, exercise_id: ex1.id})
+Workouts.create_set(%{reps: 9, weight: 80, round_id: round.id, exercise_id: ex1.id})
+Workouts.create_set(%{reps: 8, weight: 80, round_id: round.id, exercise_id: ex1.id})
+
+Workouts.create_set(%{reps: 10, weight: 100, round_id: round.id, exercise_id: ex2.id})
+Workouts.create_set(%{reps: 9, weight: 100, round_id: round.id, exercise_id: ex2.id})
+Workouts.create_set(%{reps: 8, weight: 100, round_id: round.id, exercise_id: ex2.id})
