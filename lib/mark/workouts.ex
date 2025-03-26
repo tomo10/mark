@@ -4,6 +4,7 @@ defmodule Mark.Workouts do
   resources do
     resource Mark.Workouts.Workout do
       define :create_workout, action: :create
+      define :get_workout_by_id, action: :read, get_by: :id
       define :read_workouts, action: :read
     end
 
