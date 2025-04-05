@@ -7,10 +7,10 @@ defmodule Mark.Workouts.Workout do
   end
 
   actions do
-    default_accept [:name]
+    default_accept [:name, :description]
 
     create :create do
-      accept [:name]
+      accept [:name, :description]
     end
 
     read :read do
@@ -18,7 +18,7 @@ defmodule Mark.Workouts.Workout do
     end
 
     update :update do
-      accept [:name]
+      accept [:name, :description]
     end
 
     destroy :destroy
@@ -27,6 +27,7 @@ defmodule Mark.Workouts.Workout do
   attributes do
     uuid_primary_key :id
     attribute :name, :string, allow_nil?: false
+    attribute :description, :string, allow_nil?: true
     attribute :date, :utc_datetime, allow_nil?: false, default: &DateTime.utc_now/0
   end
 
