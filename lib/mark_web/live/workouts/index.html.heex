@@ -1,1 +1,13 @@
-<button class="btn">Let's workout!</button>
+<button class="btn" phx-click="create-workout">Let's workout!</button>
+<div class="carousel ">
+  <div :for={workout <- ["fred", "murph"]} class="carousel-item">
+    <div class="card w-96 bg-base-100 card-xs shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title">{workout}</h2>
+        <div class="justify-end card-actions">
+          <button class="btn btn-primary">Open</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
