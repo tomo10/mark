@@ -4,21 +4,37 @@ defmodule MarkWeb.Workouts.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    form = Workouts.form_to_create_workout()
+    socket = assign(socket, form: to_form(form))
     {:ok, socket}
   end
 
   @impl true
-  def handle_event("create-workout", _params, socket) do
-    # Create a new workout
-    case Workouts.create_workout(%{name: "New Workout"}) do
-      {:ok, workout} ->
-        # Update the socket with the new workout
-        socket = assign(socket, :workout, workout)
+  def handle_event("validate", %{"form" => form_data}, socket) do
+    dbg(form_data)
+
+    socket =
+      update(socket, :form, fn form ->
+        AshPhoenix.Form.validate(form, form_data)
+      end)
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("save", %{"form" => form_data}, socket) do
+    case AshPhoenix.Form.submit(socket.assigns.form, params: form_data) do
+      {:ok, _workout} ->
+        socket = socket |> put_flash(:info, "Workout created successfully.")
+
         {:noreply, socket}
 
-      {:error, changeset} ->
-        # Handle error (e.g., show an error message)
-        socket = assign(socket, :error, changeset)
+      {:error, form} ->
+        socket =
+          socket
+          |> put_flash(:error, "Could not create workout")
+          |> assign(form: to_form(form))
+
         {:noreply, socket}
     end
 

@@ -1,5 +1,5 @@
 defmodule Mark.Workouts do
-  use Ash.Domain
+  use Ash.Domain, extensions: [AshPhoenix]
 
   resources do
     resource Mark.Workouts.Workout do

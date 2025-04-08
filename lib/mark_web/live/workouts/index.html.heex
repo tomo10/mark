@@ -1,5 +1,24 @@
-<button class="btn" phx-click="create-workout">Let's workout!</button>
-<div class="carousel ">
+<.form :let={f} for={@form} phx-change="validate" phx-submit="save">
+  <.input
+    field={f[:name]}
+    type="text"
+    placeholder="Workout name"
+    label="Name of your workout"
+    class="input"
+  />
+
+  <.input
+    field={f[:description]}
+    type="text"
+    placeholder="Description"
+    label="Description"
+    class="input"
+  />
+
+  <.button>Save workout</.button>
+</.form>
+
+<%!-- <div class="carousel ">
   <div :for={workout <- ["fred", "murph"]} class="carousel-item">
     <div class="card w-96 bg-base-100 card-xs shadow-sm">
       <div class="card-body">
@@ -10,4 +29,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> --%>
